@@ -74,6 +74,8 @@ let
   mongoConfig = pkgs.writeText "mongo.yaml" cfg.mongoConfig;
   jmxConfig = pkgs.writeText "jmx.yaml" cfg.jmxConfig;
   processConfig = pkgs.writeText "process.yaml" cfg.processConfig;
+  mysqlConfig = pkgs.writeText "mysql.yaml" cfg.mysqlConfig;
+  redisdbConfig = pkgs.writeText "redisdb.yaml" cfg.redisdbConfig;
   
   etcfiles =
     let
@@ -105,6 +107,14 @@ let
     (optional (cfg.processConfig != null)
       { source = processConfig;
         target = "dd-agent/conf.d/process.yaml";
+      }) ++
+    (optional (cfg.mysqlConfig != null)
+      { source = mysqlConfig;
+        target = "dd-agent/conf.d/mysql.yaml";
+      }) ++
+    (optional (cfg.redisdbConfig != null)
+      { source = redisdbConfig;
+        target = "dd-agent/conf.d/redisdb.yaml";
       }) ++
     (optional (cfg.jmxConfig != null)
       { source = jmxConfig;
@@ -159,6 +169,18 @@ in {
 
     jmxConfig = mkOption {
       description = "JMX integration configuration";
+      default = null;
+      type = types.uniq (types.nullOr types.string);
+    };
+
+    mysqlConfig = mkOption {
+      description = "MySQL integration configuration";
+      default = null;
+      type = types.uniq (types.nullOr types.string);
+    };
+
+    redisdbConfig = mkOption {
+      description = "Redis integration configuration";
       default = null;
       type = types.uniq (types.nullOr types.string);
     };

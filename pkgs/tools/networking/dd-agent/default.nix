@@ -51,6 +51,8 @@ in stdenv.mkDerivation rec {
     pythonPackages.pymongo_2_9_1
     pythonPackages.python-etcd
     pythonPackages.consul
+    pythonPackages.pymysql
+    pythonPackages.redis
     docker_1_10
   ];
   propagatedBuildInputs = with pythonPackages; [ python tornado ];
