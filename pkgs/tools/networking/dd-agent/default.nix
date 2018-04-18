@@ -38,6 +38,8 @@ in stdenv.mkDerivation rec {
     sha256 = "1iqxvgpsqibqw3vk79158l2pnb6y4pjhjp2d6724lm5rpz4825lx";
   };
 
+  patches = [ ./iostat.diff ];
+
   buildInputs = [
     python
     unzip

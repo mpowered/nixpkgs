@@ -1,0 +1,11 @@
+--- dd-agent-5.11.2/agent/checks/system/unix.py       2017-02-13 23:11:15.000000000 +0200
++++ dd-agent-5.11.2-iostat/agent/checks/system/unix.py        2018-04-18 16:12:30.236055656 +0200
+@@ -39,7 +39,7 @@
+         self.value_re = re.compile(r'\d+\.\d+')
+
+     def _parse_linux2(self, output):
+-        recentStats = output.split('Device:')[2].split('\n')
++        recentStats = output.split('Device')[2].split('\n')
+         header = recentStats[0]
+         headerNames = re.findall(self.header_re, header)
+         device = None
