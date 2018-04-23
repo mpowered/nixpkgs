@@ -38,8 +38,6 @@ in stdenv.mkDerivation rec {
     sha256 = "1iqxvgpsqibqw3vk79158l2pnb6y4pjhjp2d6724lm5rpz4825lx";
   };
 
-  patches = [ ./iostat.diff ];
-
   buildInputs = [
     python
     unzip
@@ -65,6 +63,8 @@ in stdenv.mkDerivation rec {
     ln -s $out/agent/agent.py $out/bin/dd-agent
     ln -s $out/agent/dogstatsd.py $out/bin/dogstatsd
     ln -s $out/agent/ddagent.py $out/bin/dd-forwarder
+
+    sed -i 's/Device:/Device/' $out/agent/checks/system/unix.py
 
     # Move out default conf.d so that /etc/dd-agent/conf.d is used
     mv $out/agent/conf.d $out/agent/conf.d-system
